@@ -11,9 +11,7 @@ pipeline {
         }
         stage ('check for pull request') {
             steps {
-                when {
-                    BRANCH_NAME ==~ "PR*"
-                }
+                when { BRANCH_NAME ==~ '[PR-*]' }
                 echo 'We have a new pull requests. Need to run some tests on it'
                 test (BRANCH_NAME)
             }
@@ -21,7 +19,7 @@ pipeline {
         stage ('Regular branch') {
             steps {
                 when {
-                    BRANCH_NAME ==~ "FB*"
+                    BRANCH_NAME ==~ 'FB-[*]'
                 }
                 test (BRANCH_NAME)
             }
