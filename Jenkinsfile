@@ -14,28 +14,28 @@ pipeline {
             when {
                 expression { BRANCH_NAME =~ /^PR-/ }
             }
-            steps {
-                echo 'We have a new pull requests. Need to run some tests on it'
-                sh "./script.sh"
-                if  (num) {
-                    println "You are lucky"
-                } else {
-                    Exit 1
-                }
+            //steps {
+            echo 'We have a new pull requests. Need to run some tests on it'
+            sh "./script.sh"
+            if  (num) {
+                println "You are lucky"
+            } else {
+                Exit 1
             }
+            //}
         }
         stage ('Regular branch') {
             when {
                 expression { BRANCH_NAME =~ /^fb-/ }
             }
-            steps {
-                def test_result = test(BRANCH_NAME)
-                if (test_result == 'pass') {
-                    println "your script have good syntax"
-                } else {
-                    Exit 2
-                }
+            //steps {
+            def test_result = test(BRANCH_NAME)
+            if (test_result == 'pass') {
+                println "your script have good syntax"
+            } else {
+                Exit 2
             }
+            //}
         }
     }
 
