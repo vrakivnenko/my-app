@@ -22,6 +22,7 @@ pipeline {
                 expression { BRANCH_NAME =~ /^fb-/ }
             }
             steps {
+                test(BRANCH_NAME)
                 echo "feature branch"
             }
         }
