@@ -22,6 +22,7 @@ pipeline {
             when {
                 expression { BRANCH_NAME =~ /^fb-/ }
             }
+            echo "yeah, fb- branch"
             steps {
                 test(BRANCH_NAME)
             }
