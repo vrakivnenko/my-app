@@ -15,7 +15,6 @@ pipeline {
             }
             steps {
                 echo 'We have a new pull requests. Need to run some tests on it'
-                test(BRANCH_NAME)
             }
         }
         stage ('Regular branch') {
@@ -23,16 +22,7 @@ pipeline {
                 expression { BRANCH_NAME =~ /^fb-/ }
             }
             steps {
-                echo "yeah, fb- branch"
-                script {
-                    // def syntax = BRANCH_NAME
-                    if (syntax == true) {
-                        def syntax = "pass"
-                        println("Syntax is good")
-                    } else {
-                        println("Syntax is bad")
-                    }
-                }
+                echo "feature branch"
             }
         }
     }
