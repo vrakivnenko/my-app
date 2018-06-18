@@ -14,15 +14,15 @@ pipeline {
             when {
                 expression { BRANCH_NAME =~ /^PR-/ }
             }
-            //steps {
-            echo 'We have a new pull requests. Need to run some tests on it'
-            sh "./script.sh"
+            steps {
+                echo 'We have a new pull requests. Need to run some tests on it'
+                sh "./script.sh"
+            }
             if  (num) {
                 println "You are lucky"
             } else {
                 Exit 1
             }
-            //}
         }
         stage ('Regular branch') {
             when {
