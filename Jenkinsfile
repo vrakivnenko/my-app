@@ -20,7 +20,7 @@ pipeline {
         }
         stage ('Regular branch') {
             when {
-                expression { BRANCH_NAME =~ /(^FB)/ }
+                expression { BRANCH_NAME =~ /(^fb)/ }
             }
             steps {
                 test (BRANCH_NAME)
