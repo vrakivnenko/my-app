@@ -25,10 +25,12 @@ pipeline {
             steps {
                 echo "yeah, fb- branch"
                 script {
+                    def syntax = BRANCH_NAME
                     if (syntax == true) {
                         def syntax = "pass"
+                        println("Syntax is good")
                     } else {
-                        echo "Syntax is bad"
+                        println("Syntax is bad")
                     }
                 }
             }
