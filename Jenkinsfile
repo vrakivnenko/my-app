@@ -27,7 +27,7 @@ pipeline {
                 script {
                     // def syntax = BRANCH_NAME
                     if (syntax == true) {
-                        syntax = "pass"
+                        def syntax = "pass"
                         println("Syntax is good")
                     } else {
                         println("Syntax is bad")
