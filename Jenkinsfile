@@ -15,6 +15,9 @@ pipeline {
             }
             steps {
                 echo 'We have a new pull requests. Need to run some tests on it'
+                test(BRANCH_NAME)
+
+                //if the test fails make the job fail
             }
         }
         stage ('Regular branch') {
@@ -22,8 +25,16 @@ pipeline {
                 expression { BRANCH_NAME =~ /^fb-/ }
             }
             steps {
-                test(BRANCH_NAME)
-                echo "feature branch"
+                def test_result = test(BRANCH_NAME)
+                if (test_result == 'pass') {
+                    println "your scirpt have good syntax"
+                } else {
+                    emailext (
+                        subject: email_subject, 
+                        mimetype: 'text/html', 
+                        to: emailextrecipients([[$class: 'CulpritsRecipientProvider']]), 
+                        body: email_body
+                        )                }
             }
         }
     }
