@@ -24,7 +24,13 @@ pipeline {
             }
             steps {
                 echo "yeah, fb- branch"
-                test(BRANCH_NAME)
+                script {
+                    if (syntax == true) {
+                        def syntax = "pass"
+                    } else {
+                        echo "Syntax is bad"
+                    }
+                }
             }
         }
     }
