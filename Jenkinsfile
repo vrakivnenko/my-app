@@ -11,19 +11,19 @@ pipeline {
         }
         stage ('check for pull request') {
             when {
-                expression { BRANCH_NAME =~ /(^PR)/ }
+                expression { BRANCH_NAME =~ /^PR-/ }
             }
             steps {
                 echo 'We have a new pull requests. Need to run some tests on it'
-                test (BRANCH_NAME)
+                test(BRANCH_NAME)
             }
         }
         stage ('Regular branch') {
             when {
-                expression { BRANCH_NAME =~ /(^fb)/ }
+                expression { BRANCH_NAME =~ /^fb-/ }
             }
             steps {
-                test (BRANCH_NAME)
+                test(BRANCH_NAME)
             }
         }
     }
