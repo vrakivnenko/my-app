@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     def test_result = test(BRANCH_NAME)
-                    if (test_result == 'pass') {
+                    if (test_result) {
                         println "your script have good syntax"
                     } else {
                         return false
