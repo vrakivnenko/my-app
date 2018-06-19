@@ -19,19 +19,21 @@ pipeline {
                 sh "./script.sh"
             }
         }
-        // stage ('Regular branch') {
-        //     when {
-        //         expression { BRANCH_NAME =~ /^fb-/ }
-        //     }
-        //     //steps {
-        //     // def test_result = test(BRANCH_NAME)
-        //     // if (test_result == 'pass') {
-        //     //     println "your script have good syntax"
-        //     // } else {
-        //     //     Exit 2
-        //     // }
-        //     //}
-        // }
+        stage ('Regular branch') {
+            when {
+                expression { BRANCH_NAME =~ /^fb-/ }
+            }
+            steps {
+                script {
+                    def test_result = test(BRANCH_NAME)
+                    if (test_result == 'pass') {
+                        println "your script have good syntax"
+                    } else {
+                        return false
+                    }
+                }
+            }
+        }
     }
 
     post {
