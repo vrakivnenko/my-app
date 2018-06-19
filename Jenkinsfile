@@ -17,7 +17,6 @@ pipeline {
             steps {
                 echo 'We have a new pull requests. Need to run some tests on it'
                 sh "./script.sh"
-                sh "$?"
             }
         }
         stage ('Regular branch') {
