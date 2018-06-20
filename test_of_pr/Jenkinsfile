@@ -18,8 +18,7 @@ pipeline {
                     pullRequest.createStatus(
                         'failure', 
                         'asdads', 
-                        'description', 
-                        'url'
+                        'description'
                     ) 
                 }
             }
