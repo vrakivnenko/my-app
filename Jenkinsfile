@@ -29,7 +29,7 @@ pipeline {
                 sh "sleep 20"
                 script {
                     if ($ca = 0) {
-                        sh "echo 'it`s ok'"
+                        echo 'it`s ok'
                         pullRequest.createStatus(
                             'success',
                             'somme',
