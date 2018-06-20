@@ -18,21 +18,32 @@ pipeline {
                 echo 'We have a new pull requests. Need to run some tests on it'
                 script {
                     pullRequest.createStatus(
-                        'failure',
+                        'pending',
                         'somme',
                         'text', 
-                        'https://github.com/vrakivnenko/my-app/pull/2'
+                        'https://github.com/vrakivnenko/my-app/pull/1'
                     ) 
                 }
                 sh "./script.sh"
-                sh "echo 'it`s ok'"
+                sh "echo $ca"
+                sh "sleep 20"
                 script {
-                    pullRequest.createStatus(
-                        'success',
-                        'somme',
-                        'text', 
-                        'https://github.com/vrakivnenko/my-app/pull/2'
-                    ) 
+                    if ($ca = 0) {
+                        sh "echo 'it`s ok'"
+                        pullRequest.createStatus(
+                            'success',
+                            'somme',
+                            'text', 
+                            'https://github.com/vrakivnenko/my-app/pull/1'
+                        ) 
+                    } else {
+                        pullRequest.createStatus(
+                            'failure',
+                            'somme',
+                            'text', 
+                            'https://github.com/vrakivnenko/my-app/pull/1'
+                        ) 
+                    }
                 }
 
             }
