@@ -87,4 +87,3 @@ pipeline {
         }
     }
 }
-println(pullRequest.getClass())
