@@ -14,14 +14,14 @@ pipeline {
             }
             steps {
                 echo BRANCH_NAME
-                pullRequest.CommitStatus createStatus(
-                    [
-                        String status , 
-                        String context, 
-                        String description, 
-                        String targetUrl
-                    ]
-                ) 
+                script {
+                    pullRequest.createStatus(
+                        'Fail', 
+                        'asdads', 
+                        'description', 
+                        'url'
+                    ) 
+                }
             }
         }
     }
