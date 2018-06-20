@@ -3,14 +3,14 @@ pipeline {
     agent any
     triggers { pollSCM('*/2 * * * *') }
 
-    stages {
-        stage ('print branch name') {
-            steps {
-                echo BRANCH_NAME
-                CommitStatus createStatus(String status [ "Fail", "it fail test", String targetUrl])  
-            }
-        }
-    }
+    // stages {
+    //     stage ('print branch name') {
+    //         steps {
+    //             echo BRANCH_NAME
+    //             CommitStatus createStatus(String status [ "Fail", "it fail test", String targetUrl])  
+    //         }
+    //     }
+    // }
     script {
         public CommitStatus createStatus(IRepositoryIdProvider repository,
                 String sha, CommitStatus status) throws IOException {
