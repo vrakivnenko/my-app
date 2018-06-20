@@ -17,8 +17,6 @@ pipeline {
                 script {
                     pullRequest.createStatus(
                         'failure', 
-                        'asdads', 
-                        'description'
                     ) 
                 }
             }
