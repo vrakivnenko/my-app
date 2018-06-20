@@ -25,6 +25,7 @@ pipeline {
                     ) 
                 }
                 sh "./script.sh"
+                sh "echo 'it`s ok'"
                 script {
                     pullRequest.createStatus(
                         'success',
