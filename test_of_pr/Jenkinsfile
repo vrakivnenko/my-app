@@ -16,7 +16,7 @@ pipeline {
                 echo BRANCH_NAME
                 script {
                     pullRequest.createStatus(
-                        'Fail', 
+                        'Failure', 
                         'asdads', 
                         'description', 
                         'url'
