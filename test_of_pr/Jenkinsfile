@@ -19,7 +19,7 @@ pipeline {
                         'failure',
                         'somme',
                         'text', 
-                        'test_pr'
+                        'https://github.com/vrakivnenko/my-app/pull/2'
                     ) 
                 }
             }
