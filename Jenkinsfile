@@ -16,7 +16,24 @@ pipeline {
             }
             steps {
                 echo 'We have a new pull requests. Need to run some tests on it'
+                script {
+                    pullRequest.createStatus(
+                        'failure',
+                        'somme',
+                        'text', 
+                        'https://github.com/vrakivnenko/my-app/pull/2'
+                    ) 
+                }
                 sh "./script.sh"
+                script {
+                    pullRequest.createStatus(
+                        'success',
+                        'somme',
+                        'text', 
+                        'https://github.com/vrakivnenko/my-app/pull/2'
+                    ) 
+                }
+
             }
         }
         stage ('Regular branch') {
@@ -26,15 +43,29 @@ pipeline {
             steps {
                 script {
                     def test_result = test(BRANCH_NAME)
+                    }
+                script {
                     if (test_result) {
                         println "your script have good syntax"
                     } else {
                         return false
                     }
                 }
+                // user_input = input "Does staging looking good?"
+                // script {
+                //     if (user_input == "Yes") {
+                //         echo "Start deployment"
+                //     } else {
+                //         echo "Make it right!"
+                //         sh "exit 2"
+                //     }
+                // }
             }
         }
-    }
+    //     stage ('Deploy') {
+    //         when 
+    //     }
+    // }
 
     post {
         failure {
@@ -56,3 +87,4 @@ pipeline {
         }
     }
 }
+println(pullRequest.getClass())
