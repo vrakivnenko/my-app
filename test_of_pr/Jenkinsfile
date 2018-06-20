@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage ('print branch name') {
             when {
-                expression { BRANCH_NAME =~ /^fb-/ }
+                expression { BRANCH_NAME =~ /^PR-/ }
             }
             steps {
                 echo BRANCH_NAME
