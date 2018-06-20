@@ -1,0 +1,38 @@
+#!/usr/bin/env groovy
+def status = 'Fail'
+def context = 'something'
+def description = 'about'
+def targetUrl = 'test_pr'
+pipeline {
+    agent any
+    triggers { pollSCM('*/2 * * * *') }
+
+    stages {
+        stage ('print branch name') {
+            when {
+                expression { BRANCH_NAME =~ /^PR-/ }
+            }
+            steps {
+                echo BRANCH_NAME
+                script {
+                    pullRequest.createStatus(
+                        'failure',
+                        'somme',
+                        'text', 
+                        'https://github.com/vrakivnenko/my-app/pull/2'
+                    ) 
+                }
+            }
+        }
+    }
+}
+//     public CommitStatus createStatus(IRepositoryIdProvider repository,
+//             String sha, CommitStatus status) throws IOException {
+//         commitStatus.put(sha, status);
+
+//         return status;
+//         }
+
+// }
+
+ 
