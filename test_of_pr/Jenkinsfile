@@ -7,7 +7,7 @@ pipeline {
         stage ('print branch name') {
             steps {
                 echo BRANCH_NAME
-                println(pullRequest.getClass())
+                println(CommitStatus.getClass())
             }
         }
     }
