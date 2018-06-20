@@ -7,7 +7,7 @@ pipeline {
         stage ('print branch name') {
             steps {
                 echo BRANCH_NAME
-                println(pullRequelsst.getClass())
+                println(pullRequest.getClass())
             }
         }
     }
