@@ -1,24 +1,38 @@
 #!/usr/bin/env groovy
+def status = 'Fail'
+def context = 'something'
+def description = 'about'
+def targetUrl = 'test_pr'
 pipeline {
     agent any
     triggers { pollSCM('*/2 * * * *') }
 
-    // stages {
-    //     stage ('print branch name') {
-    //         steps {
-    //             echo BRANCH_NAME
-    //             CommitStatus createStatus(String status [ "Fail", "it fail test", String targetUrl])  
-    //         }
-    //     }
-    // }
-    
-    public CommitStatus createStatus(IRepositoryIdProvider repository,
-            String sha, CommitStatus status) throws IOException {
-        commitStatus.put(sha, status);
-
-        return status;
+    stages {
+        stage ('print branch name') {
+            when {
+                expression { BRANCH_NAME =~ /^fb-/ }
+            }
+            steps {
+                echo BRANCH_NAME
+                pullRequest.CommitStatus createStatus(
+                    [
+                        String status , 
+                        String context, 
+                        String description, 
+                        String targetUrl
+                    ]
+                ) 
+            }
         }
+    }
+    
+//     public CommitStatus createStatus(IRepositoryIdProvider repository,
+//             String sha, CommitStatus status) throws IOException {
+//         commitStatus.put(sha, status);
 
-}
+//         return status;
+//         }
+
+// }
 
  
