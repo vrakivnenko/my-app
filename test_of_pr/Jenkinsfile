@@ -16,7 +16,10 @@ pipeline {
                 echo BRANCH_NAME
                 script {
                     pullRequest.createStatus(
-                        'failure' 
+                        'failure',
+                        'somme',
+                        'text', 
+                        'test_pr'
                     ) 
                 }
             }
