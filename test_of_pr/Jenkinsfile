@@ -11,14 +11,14 @@ pipeline {
     //         }
     //     }
     // }
-    script {
-        public CommitStatus createStatus(IRepositoryIdProvider repository,
-                String sha, CommitStatus status) throws IOException {
-            commitStatus.put(sha, status);
+    
+    public CommitStatus createStatus(IRepositoryIdProvider repository,
+            String sha, CommitStatus status) throws IOException {
+        commitStatus.put(sha, status);
 
-            return status;
-            }
-    }
+        return status;
+        }
+
 }
 
  
