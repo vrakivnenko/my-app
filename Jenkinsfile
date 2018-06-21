@@ -30,9 +30,9 @@ pipeline {
                         returnStdout: true
                     ).trim()
                     println return_code
-                }
-                sh "sleep 20"
-                script {
+                // }
+                // sh "sleep 20"
+                // script {
                     if (return_code == "0") {
                         echo 'it`s ok'
                         pullRequest.createStatus(
