@@ -87,9 +87,9 @@ pipeline {
                             usernameVariable: 'SSH_USER'
                         )
                     ]
-                ) {
-                    sh "ssh -i $SSH_KEY $SSH_USER@localhost \"docker run -d -p 80:79 --name pipe ngnix\" "
-                }
+                ) 
+                sh "ssh -i $SSH_KEY $SSH_USER@localhost \"docker run -d -p 80:79 --name pipe ngnix\" "
+                
             }
         }
     }
