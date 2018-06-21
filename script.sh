@@ -9,3 +9,4 @@ va(){
     return "$ca"
 }
 va
+echo $ca
