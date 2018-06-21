@@ -57,11 +57,11 @@ pipeline {
             steps {
                 script {
                     def test_result = test(BRANCH_NAME)
-                    if (test_result) {
+                    if (test_result == "0") {
                         println "your script have good syntax"
                     } else {
                         emailext(
-                            subject: "FAILED: Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
+                            subject: "FAILED TEST: Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
                             body:
                     """
                     FAILED: Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}]
