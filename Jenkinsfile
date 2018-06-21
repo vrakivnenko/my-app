@@ -30,7 +30,7 @@ pipeline {
                 }
                 sh "sleep 20"
                 script {
-                    if (ca == "0") {
+                    if (return_code == "0") {
                         echo 'it`s ok'
                         pullRequest.createStatus(
                             'success',
