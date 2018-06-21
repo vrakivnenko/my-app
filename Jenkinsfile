@@ -76,7 +76,6 @@ pipeline {
                 }
             }
         }
-    }
         stage ('Deploy') {
             // when 
             steps {
