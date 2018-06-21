@@ -26,7 +26,7 @@ pipeline {
                 }
                 script {
                     def return_code = sh "./script.sh"
-                    sh "echo $return_code"
+                    println return_code
                 }
                 sh "sleep 20"
                 script {
