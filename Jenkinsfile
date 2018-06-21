@@ -30,9 +30,6 @@ pipeline {
                         returnStdout: true
                     ).trim()
                     println return_code
-                // }
-                // sh "sleep 20"
-                // script {
                     if (return_code == "0") {
                         echo 'it`s ok'
                         pullRequest.createStatus(
@@ -60,8 +57,6 @@ pipeline {
             steps {
                 script {
                     def test_result = test(BRANCH_NAME)
-                    }
-                script {
                     if (test_result) {
                         println "your script have good syntax"
                     } else {
