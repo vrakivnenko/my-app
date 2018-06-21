@@ -4,7 +4,7 @@ va(){
 	then 
 		ca=0
 	else
-		ca=1
+		ca=2
     fi
     return "$ca"
 }
