@@ -91,7 +91,7 @@ pipeline {
                 ) {
                     // sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker run -d -p 80:79 --name pipe ngnix' "
                     sh "whoami"
-                    sh "ssh -i $SSH_KEY $SSH_USER@localhost 'ls -la' "
+                    sh "ssh -i \"$SSH_KEY\" $SSH_USER@localhost 'ls -la'"
                 }
                 
             }
