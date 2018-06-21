@@ -27,6 +27,7 @@ pipeline {
                 script {
                     def return_code = sh "./script.sh"
                     sh "echo $return_code"
+                }
                 sh "sleep 20"
                 script {
                     if (ca == "0") {
