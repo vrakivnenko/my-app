@@ -61,17 +61,16 @@ pipeline {
                         println "your script have good syntax"
                     } else {
                         emailext(
-                subject: "FAILED: Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
-                body:
-        """
-        FAILED: Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}]
-        Check console output at:
-        ${env.BUILD_URL}console
-        have a basd syntax
-        """,
-                //recipientProviders: [[$class: recipientProvider]],
-                to: recipient
-            )
+                            subject: "FAILED: Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
+                            body:
+                    """
+                    FAILED: Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}]
+                    Check console output at:
+                    ${env.BUILD_URL}console
+                    have a basd syntax
+                    """,
+                            //recipientProviders: [[$class: recipientProvider]],
+                            to: recipient
                        )
                     }
                 }
