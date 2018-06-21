@@ -56,22 +56,31 @@ pipeline {
             }
             steps {
                 script {
+                    pullRequest.createStatus(
+                        'pending',
+                        'check',
+                        'text', 
+                        'https://github.com/vrakivnenko/my-app/tree/fb-1'
+                    )
                     def test_result = test(BRANCH_NAME)
                     if (test_result) {
                         println "your script have good syntax"
+                        pullRequest.createStatus(
+                            'success',
+                            'check',
+                            'text', 
+                            'https://github.com/vrakivnenko/my-app/tree/fb-1'
+                        )
                     } else {
                         return false
+                        pullRequest.createStatus(
+                            'failure',
+                            'check',
+                            'text', 
+                            'https://github.com/vrakivnenko/my-app/tree/fb-1'
+                        )
                     }
                 }
-                // user_input = input "Does staging looking good?"
-                // script {
-                //     if (user_input == "Yes") {
-                //         echo "Start deployment"
-                //     } else {
-                //         echo "Make it right!"
-                //         sh "exit 2"
-                //     }
-                // }
             }
         }
     }
