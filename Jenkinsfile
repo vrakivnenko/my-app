@@ -77,10 +77,23 @@ pipeline {
             }
         }
     }
-    //     stage ('Deploy') {
-    //         when 
-    //     }
-    // }
+        stage ('Deploy') {
+            // when 
+            steps {
+                withCredentials(
+                    bindings: [
+                        sshUserPrivateKey(
+                            credentialsId: 'd837ece2-b033-47db-97e1-4bb122adf8ee',
+                            keyFileVariable: 'SSH_KEY',
+                            usernameVariable: 'SSH_USER'
+                        )
+                    ]
+                ) {
+                    sh "ssh -i $SSH_KEY $SSH_USER@localhost "docker run -d -p 80:79 --name pipe ngnix""
+                }
+            }
+        }
+    }
 
     post {
         failure {
