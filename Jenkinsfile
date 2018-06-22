@@ -56,7 +56,7 @@ pipeline {
             }
             steps {
                 script {
-                    sh ''
+                    sh "ls -l"
                     def test_result = test()
                     if (test_result == "0") {
                         // shellcheck
