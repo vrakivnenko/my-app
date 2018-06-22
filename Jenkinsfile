@@ -56,8 +56,10 @@ pipeline {
             }
             steps {
                 script {
-                    def test_result = test(BRANCH_NAME)
+                    sh ''
+                    def test_result = test()
                     if (test_result == "0") {
+                        // shellcheck
                         println "your script have good syntax"
                     } else {
                         emailext(
@@ -76,25 +78,24 @@ pipeline {
                 }
             }
         }
-        stage ('Deploy') {
-            // when 
-            steps {
-                withCredentials(
-                    bindings: [
-                        sshUserPrivateKey(
-                            credentialsId: 'd837ece2-b033-47db-97e1-4bb122adf8ee',
-                            keyFileVariable: 'SSH_KEY',
-                            passphraseVariable: '',
-                            usernameVariable: 'SSH_USER'
-                        )
-                    ]
-                ) {
-                    sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker run -d -p 80:79 --name pipe docker.io/userxy2015/ngnix' "
-                    sh "whoami"
-                    // sh "ssh -i \"$SSH_KEY\" $SSH_USER@localhost 'ls -la'"
-                }
-            }
-        }
+        // stage ('Deploy') {
+        //     // when 
+        //     steps {
+        //         withCredentials(
+        //             bindings: [
+        //                 sshUserPrivateKey(
+        //                     credentialsId: 'd837ece2-b033-47db-97e1-4bb122adf8ee',
+        //                     keyFileVariable: 'SSH_KEY',
+        //                     passphraseVariable: '',
+        //                     usernameVariable: 'SSH_USER'
+        //                 )
+        //             ]
+        //         ) {
+        //             sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker run -d -p 80:79 --name pipe docker.io/userxy2015/ngnix' "
+        //             sh "whoami"
+        //         }
+        //     }
+        // }
     }
 
     post {

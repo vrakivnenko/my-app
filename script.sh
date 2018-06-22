@@ -1,6 +1,6 @@
 #!/bin/bash 
 va(){
-	if   [ $(expr "$RANDOM" % "2") -eq "0" ];
+	if   [[ $( expr "$RANDOM" % "2") -eq "0" ]];
 	then 
 		ca="0"
 	else
