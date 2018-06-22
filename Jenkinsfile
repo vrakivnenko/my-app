@@ -21,7 +21,7 @@ pipeline {
                         'pending',
                         'somme',
                         'text', 
-                        env.GIT_URL
+                        env.JENKINS_URL
                     ) 
                 }
                 script {
@@ -36,14 +36,14 @@ pipeline {
                             'success',
                             'somme',
                             'text', 
-                            env.GIT_URL
+                            env.JENKINS_URL
                         ) 
                     } else {
                         pullRequest.createStatus(
                             'failure',
                             'somme',
                             'text', 
-                            env.GIT_URL
+                            env.JENKINS_URL
                         ) 
                     }
                 }
