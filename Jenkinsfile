@@ -59,7 +59,6 @@ pipeline {
                     sh "echo Jenkinsfile; ls -l"
                     def test_result = test()
                     if (test_result == "0") {
-                        // shellcheck
                         println "your script have good syntax"
                     } else {
                         emailext(
@@ -71,7 +70,6 @@ pipeline {
                     ${env.BUILD_URL}console
                     have a basd syntax
                     """,
-                            //recipientProviders: [[$class: recipientProvider]],
                             to: recipient
                        )
                     }
