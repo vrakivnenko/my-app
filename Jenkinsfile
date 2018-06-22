@@ -21,7 +21,7 @@ pipeline {
                         'pending',
                         'somme',
                         'text', 
-                        'https://github.com/vrakivnenko/my-app/pull/1'
+                        env.GIT_URL
                     ) 
                 }
                 script {
@@ -36,14 +36,14 @@ pipeline {
                             'success',
                             'somme',
                             'text', 
-                            'https://github.com/vrakivnenko/my-app/pull/1'
+                            env.GIT_URL
                         ) 
                     } else {
                         pullRequest.createStatus(
                             'failure',
                             'somme',
                             'text', 
-                            'https://github.com/vrakivnenko/my-app/pull/1'
+                            env.GIT_URL
                         ) 
                     }
                 }
