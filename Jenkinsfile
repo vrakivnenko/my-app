@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 recipient = 'rakivnenko81@gmail.com'
-container_name = 'pipe'
+container_name = 'pipes'
 pipeline {
     agent any
     triggers { pollSCM('*/2 * * * *') }
