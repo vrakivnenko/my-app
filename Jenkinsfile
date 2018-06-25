@@ -90,7 +90,7 @@ pipeline {
                     ]
                 ) {
                     def check_container = sh "docker ps -a | grep $container_name"
-                    if (check_container) {
+                    if (check_container()) {
                         sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker run -d -p 80:79 --name $container_name docker.io/userxy2015/ngnix' "
                         sh "whoami"
                     } else {
