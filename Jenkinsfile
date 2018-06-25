@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
 recipient = 'rakivnenko81@gmail.com'
+container_name = 'pipe'
 pipeline {
     agent any
     triggers { pollSCM('*/2 * * * *') }
@@ -76,24 +77,27 @@ pipeline {
                 }
             }
         }
-        // stage ('Deploy') {
-        //     // when 
-        //     steps {
-        //         withCredentials(
-        //             bindings: [
-        //                 sshUserPrivateKey(
-        //                     credentialsId: 'd837ece2-b033-47db-97e1-4bb122adf8ee',
-        //                     keyFileVariable: 'SSH_KEY',
-        //                     passphraseVariable: '',
-        //                     usernameVariable: 'SSH_USER'
-        //                 )
-        //             ]
-        //         ) {
-        //             sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker run -d -p 80:79 --name pipe docker.io/userxy2015/ngnix' "
-        //             sh "whoami"
-        //         }
-        //     }
-        // }
+        stage ('Deploy') {
+            steps {
+                withCredentials(
+                    bindings: [
+                        sshUserPrivateKey(
+                            credentialsId: 'd837ece2-b033-47db-97e1-4bb122adf8ee',
+                            keyFileVariable: 'SSH_KEY',
+                            passphraseVariable: '',
+                            usernameVariable: 'SSH_USER'
+                        )
+                    ]
+                ) {
+                    if (sh "docker ps -a | grep $container_name") {
+                        sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker run -d -p 80:79 --name $container_name docker.io/userxy2015/ngnix' "
+                        sh "whoami"
+                    } else {
+                        echo "You already have container $container_name"
+                    }
+                }
+            }
+        }
     }
 
     post {
