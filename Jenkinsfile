@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 recipient = 'rakivnenko81@gmail.com'
-container_name = 'pipe'
+container_name = 'pipes'
 pipeline {
     agent any
     triggers { pollSCM('*/2 * * * *') }
@@ -92,9 +92,9 @@ pipeline {
                     script {
                         def check_container = sh ( script: "ssh -i $SSH_KEY $SSH_USER@localhost 'docker ps -a | grep $container_name'", returnStatus: true )
                         if (check_container) {
-                                sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker run -d -p 80:79 --name $container_name docker.io/userxy2015/ngnix' "
-                                sh "whoami"
-                        } else {
+                            sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker run -d -p 80:79 --name $container_name docker.io/userxy2015/ngnix' "
+                            sh "whoami"
+                         } else {
                             echo "You already have container $container_name"
                         }
                     }
