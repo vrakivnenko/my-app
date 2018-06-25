@@ -89,17 +89,18 @@ pipeline {
                         )
                     ]
                 ) {
-                    script {
-                        def check_container = sh "docker ps -a | grep $container_name"
-                    }
-                    script {
-                        if (check_container()) {
-                            sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker run -d -p 80:79 --name $container_name docker.io/userxy2015/ngnix' "
-                            sh "whoami"
-                        } else {
-                            echo "You already have container $container_name"
-                        }
-                    }
+                    when { sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker ps -a | grep $container_name" }
+                    // script {
+                    //     def check_container = sh "docker ps -a | grep $container_name"
+                    // }
+                    // script {
+                    //     if (check_container()) {
+                        sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker run -d -p 80:79 --name $container_name docker.io/userxy2015/ngnix' "
+                        sh "whoami"
+                    //     } else {
+                    //         echo "You already have container $container_name"
+                    //     }
+                    // }
                 }
             }
         }
