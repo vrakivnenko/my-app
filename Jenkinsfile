@@ -57,7 +57,6 @@ pipeline {
             }
             steps {
                 script {
-                    sh "echo Jenkinsfile; ls -l"
                     def test_result = test()
                     if (test_result == "0") {
                         println "your script have good syntax"
@@ -69,7 +68,7 @@ pipeline {
                     FAILED: Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}]
                     Check console output at:
                     ${env.BUILD_URL}console
-                    have a basd syntax
+                    have a bad syntax
                     """,
                             to: recipient
                        )
@@ -91,8 +90,10 @@ pipeline {
                 ) {
                     // when { sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker ps -a | grep $container_name" }
                     script {
-                        def check_container = sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker ps -a | grep $container_name'"
-                        if (check_container()) {
+                        def check_container = sh ( script: "ssh -i $SSH_KEY $SSH_USER@localhost 'docker ps -a | grep $container_name'", returnStatus: true )
+                        check_container()
+                        echo check_container
+                        if (check_container) {
                                 sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker run -d -p 80:79 --name $container_name docker.io/userxy2015/ngnix' "
                                 sh "whoami"
                         } else {
