@@ -1,6 +1,7 @@
 #!/usr/bin/env groovy
 recipient = 'rakivnenko81@gmail.com'
 container_name = 'pipes'
+check_file = 'script.sh'
 pipeline {
     agent any
     triggers { pollSCM('*/2 * * * *') }
@@ -57,21 +58,41 @@ pipeline {
             }
             steps {
                 script {
-                    def test_result = test()
-                    if (test_result == "0") {
-                        println "your script have good syntax"
-                    } else {
-                        emailext(
-                            subject: "FAILED TEST: Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
-                            body:
-                    """
-                    FAILED: Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}]
-                    Check console output at:
-                    ${env.BUILD_URL}console
-                    have a bad syntax
-                    """,
-                            to: recipient
-                       )
+                    if (expression { check_file =~ /sh$/ }) {
+                        def test_result = test()
+                        if (test_result == "0") {
+                            println "your script have good syntax"
+                        } else {
+                            emailext(
+                                subject: "FAILED TEST: Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
+                                body:
+                        """
+                        FAILED: Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}]
+                        Check console output at:
+                        ${env.BUILD_URL}console
+                        have a bad syntax
+                        """,
+                                to: recipient
+                            )
+                        }
+                    } else if (expression { check_file =~ /sh$/ }) {
+                        set +x
+                        def test_result = py_check()
+                        if (test_result == "0") {
+                            println "your script have good syntax"
+                        } else {
+                            emailext(
+                                subject: "FAILED TEST: Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}]",
+                                body:
+                        """
+                        FAILED: Job ${env.JOB_NAME} [#${env.BUILD_NUMBER}]
+                        Check console output at:
+                        ${env.BUILD_URL}console
+                        have a bad syntax
+                        """,
+                                to: recipient
+                            )
+                        }
                     }
                 }
             }
@@ -88,7 +109,6 @@ pipeline {
                         )
                     ]
                 ) {
-                    // when { sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker ps -a | grep $container_name" }
                     script {
                         def check_container = sh ( script: "ssh -i $SSH_KEY $SSH_USER@localhost 'docker ps -a | grep $container_name'", returnStatus: true )
                         if (check_container) {
