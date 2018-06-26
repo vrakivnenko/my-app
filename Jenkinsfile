@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 recipient = 'rakivnenko81@gmail.com'
 container_name = 'pipes'
-check_file = 'script.sh'
+check_file = 'script.py'
 pipeline {
     agent any
     triggers { pollSCM('*/2 * * * *') }
@@ -58,7 +58,7 @@ pipeline {
             }
             steps {
                 script {
-                    if (expression { check_file =~ /sh$/ }) {
+                    if ( check_file =~ /sh$/ ) {
                         def test_result = test()
                         if (test_result == "0") {
                             println "your script have good syntax"
@@ -75,7 +75,7 @@ pipeline {
                                 to: recipient
                             )
                         }
-                    } else if (expression { check_file =~ /sh$/ }) {
+                    } else if (check_file =~ /py$/) {
                         set +x
                         def test_result = py_check()
                         if (test_result == "0") {
