@@ -76,7 +76,6 @@ pipeline {
                             )
                         }
                     } else if (check_file =~ /py$/) {
-                        echo "jenkins file"
                         def test_result = py_check(check_file)
                         if (test_result == "0") {
                             println "your script have good syntax"
