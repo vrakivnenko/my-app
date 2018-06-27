@@ -1,4 +1,3 @@
-# my-app
+# My-app
 
-added some info here
-some more info
+Contain actual Jenkinsfile which build pipeline and 2 scripts for testing purpose.
