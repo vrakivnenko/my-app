@@ -3,7 +3,7 @@
 // Name of recipents who will recive message if build will fail (can be changed to jenkins enviroment)
 recipient = 'rakivnenko81@gmail.com'
 //name of container which will be started in deploy stage
-container_name = 'test'
+container_name = 'test_http'
 //provide the name of script for syntax check (can be changed to PATH in git repo)
 check_file = 'script.py'
 pipeline {
