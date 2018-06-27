@@ -3,7 +3,7 @@
 // Name of recipents who will recive message if build will fail (can be changed to jenkins enviroment)
 recipient = 'rakivnenko81@gmail.com'
 //name of container which will be started in deploy stage
-container_name = 'pipes'
+container_name = 'test'
 //provide the name of script for syntax check (can be changed to PATH in git repo)
 check_file = 'script.py'
 pipeline {
@@ -66,7 +66,7 @@ pipeline {
             }
             steps {
                 script {
-                    // check type of script to check to execute right shared library test 
+                    // check type of script to execute right shared library syntax test 
                     if (check_file =~ /sh$/) {
                         def test_result = test()
                         if (test_result == "0") {
@@ -126,10 +126,11 @@ pipeline {
                         // Check is container already exist or not
                         def check_container = sh ( script: "ssh -i $SSH_KEY $SSH_USER@localhost 'docker ps -a | grep $container_name'", returnStatus: true )
                         if (check_container) {
-                            sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker run -d -p 80:79 --name $container_name docker.io/userxy2015/ngnix' "
+                            sh "ssh -i $SSH_KEY $SSH_USER@localhost 'docker run -d -p 80:80 --name $container_name httpd' "
                          } else {
                             echo "You already have container $container_name"
                         }
+                        // sh "ssh -i $SSH_KEY $SSH_USER@localhost '
                     }
                 }
             }
