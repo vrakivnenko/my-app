@@ -107,9 +107,9 @@ pipeline {
             }
         }
         stage ('Deploy') {
-            when {
-                expression { BRANCH_NAME == 'master' }
-            }
+            // when {
+            //     expression { BRANCH_NAME == 'master' }
+            // }
             steps {
                 // using ssh credentials from Jenkins for ssh to a node and deploy container
                 withCredentials(
